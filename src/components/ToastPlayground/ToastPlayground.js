@@ -13,27 +13,23 @@ function ToastPlayground() {
   const [showToast, setShowToast] = React.useState(false);
 
   function handleDismiss()  {
-    setShowToast(false)
+    setShowToast(false);
   }
 
-  return (
-    <>
-    
+  return ( 
     <div className={styles.wrapper}>
       <header>
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      <Toast variant={selectedVariant} showToast={showToast} handleDismiss={handleDismiss}>
-        {message}
-      </Toast>
-      <form 
-        className={styles.controlsWrapper}
-        onSubmit={(event) => {
-          event.preventDefault();
-          setShowToast(true);
-        }}
-      >
+
+      {showToast && (
+        <Toast variant={selectedVariant} handleDismiss={handleDismiss}>
+          {message}
+        </Toast>
+      )}
+
+      <div className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
             htmlFor="message"
@@ -80,14 +76,16 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button>
+            <Button
+              onClick={() => {
+                setShowToast(true);
+              }}>
                Pop Toast!
             </Button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-    </>
   );
 }
 
